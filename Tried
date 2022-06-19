@@ -1,0 +1,80 @@
+a[]= 10, 5, 9, 1, 11, 8, 6, 15, 3, 12, 2
+      t  t  t  t   t  t  t   t  t  t   t
+
+Since 9 is present 10 is false.
+Similarly 8 is present so 9 will be false
+
+a[]= 10, 5, 9, 1, 11, 8, 6, 15, 3, 12, 2
+      f  t  f  t   f  t  f   t  f  f   f
+      
+Now 5 taken
+5 + tl( =1) present in hashmap
+so tl++
+then 5 + tl( Now 2) not present in hashmap
+
+now tl > ml(=0)
+so ml = tl
+
+then 1 comes
+1 + tl present in hashmap
+tl++
+1 + tl present in hashmap
+tl++
+1 + tl not present in hashmap
+
+then tl( now 3) > ml (= 1)
+ml = 3
+AND SO ON
+
+The logic is
+1. In a hashmap set all nos in arrays as key and each of their values as true;
+2. Then check whether that key's previous lexicological no is present in that array or not.
+3. If present then set that key's value as false.
+4. The remaining keys who have their values as true will only be those elements from whom any sequence will be starting.
+5. Now those keys having true will be taken and their next lexicographical no will be considered.
+
+
+psvm(){
+  Scanner sc = new Scanner(System.in);
+  int n = scn.nextInt();
+  int arr[]=new int[n];
+  for(i = 0 ; i < arr.length; i++ ){
+    arr[i] = scn.nextInt();
+  }
+  
+ // 1. In a hashmap set all nos in arrays as key and each of their values as true;
+ 
+  HashMap<Integer, Boolean> = new HashMap<>();
+  for(int val: arr){
+    map.put(val, true);
+  }
+  
+ // 2. Then check whether that key's previous lexicological no is present in that array or not.
+ // 3. If present then set that key's value as false.
+ 
+  for(int val : arr){
+    if(map.containsKey(val - 1))
+      map.put(val, false);
+  }
+  int msp = 0;
+  int ml = 0;
+  for(int val : arr){
+    if(map.get(val) == true){  // 4. The remaining keys who have their values as true will only be those elements from whom any sequence will be starting.
+      int tl = 1;
+      int tsp = val;
+      
+// 5. Now those keys having true will be taken and their next lexicographical no will be considered.
+
+      while(map.containsKey(tsp + tl))
+        tl++;
+      
+      if(tl > ml){
+        msp = tsp;
+        ml = tl;
+      }
+    }
+  }
+  for(int i = 0; i <ml; i++)
+    Sopln(msp + i);
+  }
+}
